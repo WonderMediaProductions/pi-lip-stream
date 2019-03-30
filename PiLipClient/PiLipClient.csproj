@@ -10,8 +10,4 @@
     <PackageReference Include="MMALSharp" Version="0.5.0" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;c:\Program Files\PuTTY\plink.exe&quot; -i $(SolutionDir)usr\private-key.ppk pi@rp3 -batch -T &quot;rsync -rtv -a /mnt/pi-lip-client/ ~/Desktop/pi-lip-client&quot;" />
-  </Target>
-
 </Project>

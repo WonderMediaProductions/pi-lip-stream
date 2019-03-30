@@ -8,21 +8,21 @@
             "name": ".NET Core Launch (remote console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "publish-fast",
             "program": "/bin/dotnet/dotnet",
+            "preLaunchTask": "publish",
             "args": [
-                "/home/pi/Desktop/Lipstream/Lipstream.pi.dll"
+                "/home/pi/Desktop/pi-lip-client/PiLipClient.dll"
             ],
-            "cwd": "/home/pi/Desktop/Lipstream",
+            "cwd": "/home/pi/Desktop/pi-lip-client",
             "stopAtEntry": false,
             "console": "internalConsole",
             "pipeTransport": {
                 "pipeCwd": "${workspaceFolder}",
-                "pipeProgram": "C:\\Program Files (x86)\\Sysprogs\\SmarTTY\\vcxsrv\\plink.exe",
+                "pipeProgram": "c:\\Program Files\\PuTTY\\plink.exe",
                 "pipeArgs": [
                     "-pw",
                     "123456789",
-                    "root@rp3"
+                    "root@${env:TARGET_PI}"
                 ],
                 "debuggerPath": "/home/pi/vsdbg/vsdbg"
             }

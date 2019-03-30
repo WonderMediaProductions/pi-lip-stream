@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Lipstream.pi.csproj"
+                "${workspaceFolder}"
             ],
             "problemMatcher": "$tsc"
         },
@@ -18,24 +18,24 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Lipstream.pi.csproj"
+                "${workspaceFolder}"
             ],
             "problemMatcher": "$tsc"
         },
         {
-            "label": "publish-fast",
+            "label": "publish",
             "type": "shell",
-            "dependsOn": "build",
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
+                "clear": true,
                 "group": "publish"
             },
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "windows": {
-                "command": "${cwd}\\publish-fast.bat"
+                "command": "${cwd}\\publish.bat ${env:TARGET_PI}"
             },
             "problemMatcher": [],
             "group": {
@@ -43,23 +43,5 @@
                 "isDefault": true
             }
         },
-        {
-            "label": "publish-full",
-            "type": "shell",
-            "dependsOn": "build",
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared",
-                "group": "publish"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "windows": {
-                "command": "${cwd}\\publish-full.bat"
-            },
-            "problemMatcher": [],
-            "group": "build"
-        }
     ]
-} 
+}
