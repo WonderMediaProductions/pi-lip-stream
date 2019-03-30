@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (remote console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "publish-fast",
+            "program": "/bin/dotnet/dotnet",
+            "args": [
+                "/home/pi/Desktop/Lipstream/Lipstream.pi.dll"
+            ],
+            "cwd": "/home/pi/Desktop/Lipstream",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "C:\\Program Files (x86)\\Sysprogs\\SmarTTY\\vcxsrv\\plink.exe",
+                "pipeArgs": [
+                    "-pw",
+                    "123456789",
+                    "root@rp3"
+                ],
+                "debuggerPath": "/home/pi/vsdbg/vsdbg"
+            }
+        }
+    ]
+}
