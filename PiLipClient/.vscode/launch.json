@@ -16,6 +16,8 @@
             "cwd": "/home/pi/Desktop/pi-lip-client",
             "stopAtEntry": false,
             "console": "internalConsole",
+            "justMyCode": false,
+            "enableStepFiltering": false,
             "pipeTransport": {
                 "pipeCwd": "${workspaceFolder}",
                 "pipeProgram": "c:\\Program Files\\PuTTY\\plink.exe",

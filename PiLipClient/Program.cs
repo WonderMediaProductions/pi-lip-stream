@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using MMALSharp;
 using MMALSharp.Common.Utility;
 using MMALSharp.Components;
-using MMALSharp.Config;
 using MMALSharp.Handlers;
 using MMALSharp.Native;
 using MMALSharp.Ports;
+using NLog.Config;
+using NLog.Targets;
 
 namespace Lipstream.pi
 {
@@ -43,32 +44,35 @@ namespace Lipstream.pi
 
         void ICaptureHandler.PostProcess()
         {
+            Console.WriteLine("PostProcess");
             Stopwatch.Stop();
         }
 
         ProcessResult ICaptureHandler.Process(uint allocSize)
         {
+            Console.WriteLine($"Process {allocSize}");
             return NoResult;
         }
 
         void ICaptureHandler.Process(byte[] data)
         {
+            Console.WriteLine($"Process data {data.Length}");
+
             if (FrameCount == 0)
             {
                 Stopwatch.Start();
             }
             else
             {
-                Debug.Assert(Stopwatch.IsRunning);
+                // Debug.Assert(Stopwatch.IsRunning);
             }
 
             ++FrameCount;
-            Console.WriteLine(data.Length);
         }
 
         string ICaptureHandler.TotalProcessed()
         {
-            return $"Processed {FrameCount} frames in {Stopwatch.ElapsedMilliseconds}ms, {FrameCount / Stopwatch.Elapsed.TotalSeconds:000.0}FPS";
+            return $"TotalProcessed {FrameCount} frames in {Stopwatch.ElapsedMilliseconds}ms, {FrameCount / Stopwatch.Elapsed.TotalSeconds:000.0}FPS";
         }
     }
 
@@ -77,6 +81,11 @@ namespace Lipstream.pi
         static async Task Main(string[] args)
         {
             MMALCameraConfig.Debug = true;
+
+            var config = new LoggingConfiguration();
+            var target = new ColoredConsoleTarget();
+            config.AddTarget("console", target);
+
             await TakeVideoManual();
         }
 
@@ -88,28 +97,24 @@ namespace Lipstream.pi
 
             cam.EnableCamera();
 
+            // https://github.com/techyian/MMALSharp/wiki/Sony-IMX219-Camera-Module
             MMALCameraConfig.SensorMode = MMALSensorMode.Mode7;
             MMALCameraConfig.VideoResolution = Resolution.As03MPixel;
             MMALCameraConfig.VideoFramerate = new MMAL_RATIONAL_T(fps, 1);
 
-            using (var capturer = new CustomVideoCapturer("/home/pi/Desktop/", "h264"))
-            using (var resizer = new MMALResizerComponent(null))
-            using (var encoder = new MMALVideoEncoder(capturer))
+            using (var streamer = new CameraUdpStreamer())
+            using (var resizer = new MMALResizerComponent(streamer))
             using (var nullSink = new MMALNullSinkComponent())
             {
                 cam.ConfigureCameraSettings();
 
-                var encoderPortConfig = new MMALPortConfig(MMALEncoding.H264, MMALEncoding.I420, fps, 10, MMALVideoEncoder.MaxBitrateLevel4, null);
-                encoder.ConfigureOutputPort(encoderPortConfig);
-
                 var resizerPortConfig = new MMALPortConfig(MMALEncoding.I420, MMALEncoding.I420, 640 / 4, 480 / 4, fps, 0, 0, false, null);
-                resizer.ConfigureInputPort(MMALEncoding.OPAQUE, MMALEncoding.I420, cam.Camera.VideoPort)
-                       .ConfigureOutputPort(resizerPortConfig);
+                resizer.ConfigureInputPort(MMALEncoding.OPAQUE, MMALEncoding.I420, cam.Camera.VideoPort);
+                resizer.ConfigureOutputPort(resizerPortConfig);
 
-                resizer.Outputs[0].ConnectTo(encoder);
+                resizer.EnableConnections();
 
                 cam.Camera.VideoPort.ConnectTo(resizer);
-
                 cam.Camera.PreviewPort.ConnectTo(nullSink);
 
                 cam.PrintPipeline();
@@ -119,55 +124,12 @@ namespace Lipstream.pi
                 await Task.Delay(2000);
 
                 Console.WriteLine("Capturing...");
+                
                 var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                //await cam.ProcessAsync(cam.Camera.VideoPort, cts.Token);
                 await cam.ProcessAsync(cam.Camera.VideoPort, cts.Token);
 
                 Console.WriteLine("Completed!");
-            }
-
-            // Only call when you no longer require the camera, i.e. on app shutdown.
-            cam.Cleanup();
-        }
-
-        public static async Task StreamingTest()
-        {
-            // NOT WORKING YET
-
-            MMALCamera cam = MMALCamera.Instance;
-
-            //MMALCameraConfig.VideoColorSpace = MMALEncoding.RGB16;
-            //MMALCameraConfig.VideoEncoding = MMALEncoding.RGB16;
-            //MMALCameraConfig.VideoSubformat = MMALEncoding.RGB16;
-            //MMALCameraConfig.VideoFramerate = new MMAL_RATIONAL_T(90, 1);
-            //MMALCameraConfig.VideoResolution = Resolution.As03MPixel;
-            //MMALCameraConfig.ShutterSpeed = 1000;
-            //MMALCameraConfig.ExposureMode = MMAL_PARAM_EXPOSUREMODE_T.MMAL_PARAM_EXPOSUREMODE_FIXEDFPS;
-            //MMALCameraConfig.SensorMode = MMALSensorMode.Mode7;
-
-            using (var streamer = new CameraUdpStreamer())
-            using (var resizer = new MMALResizerComponent(null))
-            using (var encoder = new MMALVideoEncoder(streamer))
-            using (var nullSink = new MMALNullSinkComponent())
-            {
-                cam.ConfigureCameraSettings();
-
-                var resizerPortConfig = new MMALPortConfig(MMALEncoding.RGB16, MMALEncoding.RGB16, 640 / 4, 480 / 4, 0, 0, 0, false, null);
-                var encoderPortConfig = new MMALPortConfig(MMALEncoding.RGB16, MMALEncoding.RGB16, 100);
-
-                resizer.ConfigureInputPort(MMALEncoding.OPAQUE, MMALEncoding.RGB16, cam.Camera.VideoPort)
-                       .ConfigureOutputPort(resizerPortConfig);
-
-                encoder.ConfigureOutputPort(encoderPortConfig);
-
-                cam.Camera.PreviewPort.ConnectTo(nullSink);
-                cam.Camera.VideoPort.ConnectTo(resizer);
-                resizer.Outputs[0].ConnectTo(encoder);
-
-                // Camera warm up time
-                // await Task.Delay(2000);
-
-                var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-                await cam.ProcessAsync(cam.Camera.VideoPort, cancellationTokenSource.Token);
             }
 
             // Only call when you no longer require the camera, i.e. on app shutdown.

@@ -6,18 +6,8 @@ if ERRORLEVEL 1 goto :error
 
 echo Copying...
 REM "c:\Program Files\PuTTY\plink.exe" -i %~DP0..\usr\private-key.ppk pi@%TARGET_PI% -batch -T "rsync -rtv -a /mnt/pi-lip-client/Debug/netcoreapp2.2/linux-arm/publish/* ~/Desktop/pi-lip-client/"
-xcopy /y /s /e /d "%~DP0\bin\Debug\netcoreapp2.2\linux-arm\publish" \\%TARGET_PI%\pi-desktop\pi-lip-client
+xcopy /y /s /e /d "%~DP0\bin\Debug\netcoreapp2.2\linux-arm\publish" "\\%TARGET_PI%\pi-desktop\pi-lip-client\"
 if ERRORLEVEL 1 goto :error
-
-echo Running...
-"c:\Program Files\PuTTY\plink.exe" -i %~DP0..\usr\private-key.ppk pi@%TARGET_PI% -batch -T "/bin/dotnet/dotnet ~/Desktop/pi-lip-client/PiLipClient.dll"
-if ERRORLEVEL 1 goto :error
-
-echo Playing...
-"c:\Program Files\PuTTY\plink.exe" -i %~DP0..\usr\private-key.ppk pi@%TARGET_PI% -batch -T "export DISPLAY=:0; nohup vlc --play-and-exit -f ~/Desktop/output.h264 &>/dev/null"
-if ERRORLEVEL 1 goto :error
-
-
 exit /B 0
 
 :error

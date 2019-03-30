@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PiLipClient", "PiLipClient\PiLipClient.csproj", "{30836550-9B48-45F9-85C8-F60C79C73069}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMALSharp", "dependencies\MMALSharp\src\MMALSharp\MMALSharp.csproj", "{7EE9CE4E-F460-418C-99DF-B21065A12D8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMALSharp.Common", "dependencies\MMALSharp\src\MMALSharp.Common\MMALSharp.Common.csproj", "{FD22784D-E4FC-4444-B176-D976556BF6BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMALSharp.Processing", "dependencies\MMALSharp\src\MMALSharp.Processing\MMALSharp.Processing.csproj", "{4B968C72-6834-4385-A68C-A82B9AB0BAD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{30836550-9B48-45F9-85C8-F60C79C73069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30836550-9B48-45F9-85C8-F60C79C73069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30836550-9B48-45F9-85C8-F60C79C73069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EE9CE4E-F460-418C-99DF-B21065A12D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE9CE4E-F460-418C-99DF-B21065A12D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE9CE4E-F460-418C-99DF-B21065A12D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE9CE4E-F460-418C-99DF-B21065A12D8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD22784D-E4FC-4444-B176-D976556BF6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD22784D-E4FC-4444-B176-D976556BF6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD22784D-E4FC-4444-B176-D976556BF6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD22784D-E4FC-4444-B176-D976556BF6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B968C72-6834-4385-A68C-A82B9AB0BAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B968C72-6834-4385-A68C-A82B9AB0BAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B968C72-6834-4385-A68C-A82B9AB0BAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B968C72-6834-4385-A68C-A82B9AB0BAD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

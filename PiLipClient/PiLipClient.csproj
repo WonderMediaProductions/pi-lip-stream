@@ -11,10 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MMALSharp" Version="0.5.0" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\dependencies\MMALSharp\src\MMALSharp.Common\MMALSharp.Common.csproj" />
+    <ProjectReference Include="..\dependencies\MMALSharp\src\MMALSharp.Processing\MMALSharp.Processing.csproj" />
+    <ProjectReference Include="..\dependencies\MMALSharp\src\MMALSharp\MMALSharp.csproj" />
   </ItemGroup>
 </Project>
