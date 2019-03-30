@@ -35,7 +35,7 @@
                 "cwd": "${workspaceFolder}"
             },
             "windows": {
-                "command": "${cwd}\\publish.bat ${env:TARGET_PI}"
+                "command": "${cwd}\\publish.bat"
             },
             "problemMatcher": [],
             "group": {
