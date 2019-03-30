@@ -13,6 +13,18 @@ using MMALSharp.Ports;
 
 namespace Lipstream.pi
 {
+    public class CustomVideoCapturer : VideoStreamCaptureHandler
+    {
+        public CustomVideoCapturer(string directory, string extension) : base(directory, extension)
+        {
+        }
+
+        public override void NewFile()
+        {
+            CurrentStream = File.Create(Path.Combine(Directory, $"output.{Extension}"));
+        }
+    }
+
     public class CameraUdpStreamer : ICaptureHandler
     {
         public Stopwatch Stopwatch = new Stopwatch();
@@ -65,23 +77,22 @@ namespace Lipstream.pi
         static async Task Main(string[] args)
         {
             MMALCameraConfig.Debug = true;
-
             await TakeVideoManual();
-            Console.WriteLine("Done");
         }
 
         public static async Task TakeVideoManual()
         {
             MMALCamera cam = MMALCamera.Instance;
 
-            const int fps = 30;
+            const int fps = 60;
+
+            cam.EnableCamera();
 
             MMALCameraConfig.SensorMode = MMALSensorMode.Mode7;
             MMALCameraConfig.VideoResolution = Resolution.As03MPixel;
             MMALCameraConfig.VideoFramerate = new MMAL_RATIONAL_T(fps, 1);
-            MMALCameraConfig.ExposureMode = MMAL_PARAM_EXPOSUREMODE_T.MMAL_PARAM_EXPOSUREMODE_FIXEDFPS;
 
-            using (var capturer = new VideoStreamCaptureHandler("/home/pi/Desktop/", "h264"))
+            using (var capturer = new CustomVideoCapturer("/home/pi/Desktop/", "h264"))
             using (var resizer = new MMALResizerComponent(null))
             using (var encoder = new MMALVideoEncoder(capturer))
             using (var nullSink = new MMALNullSinkComponent())
@@ -101,12 +112,17 @@ namespace Lipstream.pi
 
                 cam.Camera.PreviewPort.ConnectTo(nullSink);
 
+                cam.PrintPipeline();
+
                 // Camera warm up time
+                Console.WriteLine("Warming up...");
                 await Task.Delay(2000);
 
+                Console.WriteLine("Capturing...");
                 var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-
                 await cam.ProcessAsync(cam.Camera.VideoPort, cts.Token);
+
+                Console.WriteLine("Completed!");
             }
 
             // Only call when you no longer require the camera, i.e. on app shutdown.

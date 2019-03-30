@@ -5,6 +5,21 @@
   -  `sudo nano /etc/hosts` => change name
   -  `hostname` => test name
   - I used `rp3` for my PI
+  - This worked in the office, but not at home, I had to [install `sambda`](https://thisdavej.com/solution-for-cant-ping-raspberry-pi-hostname-on-the-network/) on the PI to make it discoverable. 
+     - TODO: `samba` might also allow us to directly copy files to it without using SSH..
+     - Editing the `etc/sambda/smb.conf` file and appending the lines below worked for me; however, `xcopy` was a lot slower than `rsync`
+
+   ```
+   [pi-desktop]
+   path = /home/pi/Desktop/
+   browsable = yes
+   writable = yes
+   read only = no
+   force user = pi
+   guest ok = yes
+   security = user
+   ```
+
 
 * Define your PI's name in Windows 10 by [adding an environment variable](https://docs.telerik.com/teststudio/features/test-runners/add-path-environment-variables) `TARGET_PI=<YOUR_PI_NAME>`
 
