@@ -13,6 +13,7 @@ namespace Lipstream.pi
         static async Task Main(string[] args)
         {
             await TakePictureManual();
+            Console.WriteLine("Done");
         }
 
         public static async Task TakePictureManual()
