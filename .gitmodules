@@ -1,0 +1,8 @@
+[submodule "dependencies/flashcam"]
+	path = dependencies/flashcam
+	url = https://github.com/WonderMediaProductions/flashcam
+
+
+[submodule "dependencies/MMALSharp"]
+	path = dependencies/MMALSharp
+	url = https://github.com/WonderMediaProductions/MMALSharp
