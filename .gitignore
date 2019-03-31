@@ -39,3 +39,6 @@ msbuild.wrn
 # private user stuff
 usr
 
+# VisualGDB stuff
+installation
+CodeDB

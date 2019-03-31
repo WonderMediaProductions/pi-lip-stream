@@ -1,5 +1,10 @@
 ### Wonder Media Productions - internal setup steps
 
+* VisualGDB notes
+  - deploy to `/home/pi/Desktop/PiLipClientNative`
+  - add the lib folder to the library path `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/Desktop/PiLipClientNative/lib`
+
+
 * [Give each PI a unique network name](https://thepihut.com/blogs/raspberry-pi-tutorials/19668676-renaming-your-raspberry-pi-the-hostname)
   - `sudo nano /etc/hostname` => change name 
   -  `sudo nano /etc/hosts` => change name

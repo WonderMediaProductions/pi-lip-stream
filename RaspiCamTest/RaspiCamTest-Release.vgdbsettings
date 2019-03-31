@@ -19,7 +19,7 @@
     <SkipDeploymentTests>false</SkipDeploymentTests>
     <MainSourceDirectoryForLocalBuilds>$(ProjectDir)</MainSourceDirectoryForLocalBuilds>
   </Project>
-  <Build xsi:type="com.visualgdb.build.msbuild">
+  <Build xsi:type="com.visualgdb.build.make">
     <ToolchainID>
       <ID>com.visualgdb.raspberry_pi</ID>
       <Version>
@@ -28,9 +28,19 @@
         <Revision>4</Revision>
       </Version>
     </ToolchainID>
-    <ProjectFile>PiLipClientNative.vcxproj</ProjectFile>
-    <ParallelJobCount>0</ParallelJobCount>
-    <SuppressDirectoryChangeMessages>true</SuppressDirectoryChangeMessages>
+    <MakeFilePathRelativeToSourceDir>Makefile</MakeFilePathRelativeToSourceDir>
+    <MakeConfigurationName>Release</MakeConfigurationName>
+    <MakeCommandTemplate>
+      <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+      <RemoteHost>
+        <HostName>BuildMachine</HostName>
+        <Transport>BuiltinShortcut</Transport>
+      </RemoteHost>
+      <Command>$(ToolchainMake)</Command>
+      <Arguments>$(ToolchainMakeArgs)</Arguments>
+      <WorkingDirectory>$(BuildDir)</WorkingDirectory>
+      <BackgroundMode xsi:nil="true" />
+    </MakeCommandTemplate>
   </Build>
   <CustomBuild>
     <PreSyncActions />
@@ -62,7 +72,6 @@
       <Enabled>false</Enabled>
     </CodeAnalyzerSettings>
   </CodeSense>
-  <BuildContextDirectory>VisualGDB\VisualGDBCache</BuildContextDirectory>
   <Debug xsi:type="com.visualgdb.debug.remote">
     <AdditionalStartupCommands />
     <AdditionalGDBSettings>

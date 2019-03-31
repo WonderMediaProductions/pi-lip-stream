@@ -17,9 +17,9 @@
     <IgnoreFileTransferErrors>false</IgnoreFileTransferErrors>
     <RemoveRemoteDirectoryOnClean>false</RemoveRemoteDirectoryOnClean>
     <SkipDeploymentTests>false</SkipDeploymentTests>
-    <MainSourceDirectoryForLocalBuilds>$(ProjectDir)</MainSourceDirectoryForLocalBuilds>
+    <MainSourceDirectoryForLocalBuilds>$(ProjectDir)\..\..\dependencies\raspicam</MainSourceDirectoryForLocalBuilds>
   </Project>
-  <Build xsi:type="com.visualgdb.build.msbuild">
+  <Build xsi:type="com.visualgdb.build.cmake">
     <ToolchainID>
       <ID>com.visualgdb.raspberry_pi</ID>
       <Version>
@@ -28,9 +28,70 @@
         <Revision>4</Revision>
       </Version>
     </ToolchainID>
-    <ProjectFile>PiLipClientNative.vcxproj</ProjectFile>
-    <ParallelJobCount>0</ParallelJobCount>
-    <SuppressDirectoryChangeMessages>true</SuppressDirectoryChangeMessages>
+    <RelativeSourceDirectory />
+    <ConfigurationType>DEBUG</ConfigurationType>
+    <BinaryDirectory>VisualGDB/$(ConfigurationName)</BinaryDirectory>
+    <MainCMakeTarget>raspicam_test</MainCMakeTarget>
+    <MakeCommandTemplate>
+      <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+      <RemoteHost>
+        <HostName>BuildMachine</HostName>
+        <Transport>BuiltinShortcut</Transport>
+      </RemoteHost>
+      <Command>$(ToolchainMake)</Command>
+      <Arguments>$(ToolchainMakeArgs)</Arguments>
+      <WorkingDirectory>$(BuildDir)</WorkingDirectory>
+      <Environment>
+        <Records />
+        <EnvironmentSetupFiles />
+      </Environment>
+      <BackgroundMode xsi:nil="true" />
+    </MakeCommandTemplate>
+    <CMakeCommand>
+      <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+      <RemoteHost>
+        <HostName>BuildMachine</HostName>
+        <Transport>BuiltinShortcut</Transport>
+      </RemoteHost>
+      <Command>C:\Users\bugfa\AppData\Local\VisualGDB\CMake\bin\cmake.exe</Command>
+      <Environment>
+        <Records />
+        <EnvironmentSetupFiles />
+      </Environment>
+      <BackgroundMode xsi:nil="true" />
+    </CMakeCommand>
+    <UpdateSourcesInCMakeFile>false</UpdateSourcesInCMakeFile>
+    <ExportCompileCommands>true</ExportCompileCommands>
+    <DisableToolchainFile>false</DisableToolchainFile>
+    <ExtraConfigurationVariables>
+      <string>CMAKE_SYSTEM_PROCESSOR=armv71</string>
+    </ExtraConfigurationVariables>
+    <CMakeMakefileType>Unix Makefiles</CMakeMakefileType>
+    <PrefixOnBuildMachine>C:\dev\pi-lip-stream\dependencies\installation</PrefixOnBuildMachine>
+    <OptionalDeploymentPrefix>/usr/local</OptionalDeploymentPrefix>
+    <DeployAsRoot>false</DeployAsRoot>
+    <CleanMode>a</CleanMode>
+    <ProjectModeSettings>
+      <ProjectItemSettings>
+        <GroupSourcesByTypes>true</GroupSourcesByTypes>
+        <GroupSourcesByPaths>true</GroupSourcesByPaths>
+        <GroupTargetsByPaths>true</GroupTargetsByPaths>
+        <AutoRefreshProject>true</AutoRefreshProject>
+        <SortTargetsByName>true</SortTargetsByName>
+        <UseCMakeUpToDateCheck>false</UseCMakeUpToDateCheck>
+        <RedundantTargetMode>HideOuterProjectTargets</RedundantTargetMode>
+        <SortSourcesByName>true</SortSourcesByName>
+        <BuildAllTargetsInSubdir>false</BuildAllTargetsInSubdir>
+        <FoldSingleItemPathLevels>true</FoldSingleItemPathLevels>
+      </ProjectItemSettings>
+      <TargetSpecificSettings />
+      <DeploymentDirectory>/tmp</DeploymentDirectory>
+      <SetLDLibraryPathFromDependentArtifacts>true</SetLDLibraryPathFromDependentArtifacts>
+      <ProjectGUID>c99a4617-b1e6-4eae-a83c-736507c1d255</ProjectGUID>
+      <VirtualFolders />
+      <ConfigurationNameCase>Upper</ConfigurationNameCase>
+      <DefaultHeaderDiscoveryMode>None</DefaultHeaderDiscoveryMode>
+    </ProjectModeSettings>
   </Build>
   <CustomBuild>
     <PreSyncActions />
@@ -50,6 +111,7 @@
     <ShowMessageAfterExecuting>true</ShowMessageAfterExecuting>
   </CustomShortcuts>
   <UserDefinedVariables />
+  <ImportedPropertySheets />
   <CodeSense>
     <Enabled>Unknown</Enabled>
     <ExtraSettings>
@@ -62,7 +124,8 @@
       <Enabled>false</Enabled>
     </CodeAnalyzerSettings>
   </CodeSense>
-  <BuildContextDirectory>VisualGDB\VisualGDBCache</BuildContextDirectory>
+  <Configurations />
+  <ProgramArgumentsSuggestions />
   <Debug xsi:type="com.visualgdb.debug.remote">
     <AdditionalStartupCommands />
     <AdditionalGDBSettings>
@@ -98,7 +161,8 @@
     <LaunchGDBSettings xsi:type="GDBLaunchParametersNewInstance">
       <DebuggedProgram>$(TargetPath)</DebuggedProgram>
       <GDBServerPort>2000</GDBServerPort>
-      <ProgramArguments />
+      <ProgramArguments>$(SelectedCMakeTargetArgs)</ProgramArguments>
+      <WorkingDirectory>$(SelectedCMakeTargetLaunchDir)</WorkingDirectory>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
     <DeploymentTargetPath>/tmp/$(TargetFileName)</DeploymentTargetPath>

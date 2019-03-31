@@ -6,3 +6,6 @@
 [submodule "dependencies/MMALSharp"]
 	path = dependencies/MMALSharp
 	url = https://github.com/WonderMediaProductions/MMALSharp
+[submodule "dependencies/raspicam"]
+	path = dependencies/raspicam
+	url = https://github.com/cedricve/raspicam.git

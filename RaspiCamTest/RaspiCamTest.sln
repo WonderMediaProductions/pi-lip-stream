@@ -1,0 +1,55 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaspiCamTest", "RaspiCamTest.vcxproj", "{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}"
+EndProject
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "raspicam", "raspicam\raspicam.vgdbcmake", "{C99A4617-B1E6-4EAE-A83C-736507C1D255}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		Debug|x86 = Debug|x86
+		MinSizeRel|VisualGDB = MinSizeRel|VisualGDB
+		MinSizeRel|x86 = MinSizeRel|x86
+		Release|VisualGDB = Release|VisualGDB
+		Release|x86 = Release|x86
+		RelWithDebInfo|VisualGDB = RelWithDebInfo|VisualGDB
+		RelWithDebInfo|x86 = RelWithDebInfo|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Debug|x86.ActiveCfg = Debug|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Debug|x86.Build.0 = Debug|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.MinSizeRel|VisualGDB.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.MinSizeRel|VisualGDB.Build.0 = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.MinSizeRel|x86.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Release|VisualGDB.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Release|x86.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.Release|x86.Build.0 = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.RelWithDebInfo|VisualGDB.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.RelWithDebInfo|VisualGDB.Build.0 = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{EE35EB12-F7D2-4ECA-AB5E-0E6E437C9D1D}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Debug|x86.ActiveCfg = Debug|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.MinSizeRel|VisualGDB.ActiveCfg = MinSizeRel|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.MinSizeRel|VisualGDB.Build.0 = MinSizeRel|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.MinSizeRel|x86.ActiveCfg = MinSizeRel|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Release|VisualGDB.Build.0 = Release|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.Release|x86.ActiveCfg = Release|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.RelWithDebInfo|VisualGDB.ActiveCfg = RelWithDebInfo|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.RelWithDebInfo|VisualGDB.Build.0 = RelWithDebInfo|VisualGDB
+		{C99A4617-B1E6-4EAE-A83C-736507C1D255}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA1CE417-A99A-4574-B62C-860259858F57}
+	EndGlobalSection
+EndGlobal
