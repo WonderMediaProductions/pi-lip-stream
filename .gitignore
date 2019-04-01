@@ -40,5 +40,7 @@ msbuild.wrn
 usr
 
 # VisualGDB stuff
-installation
-CodeDB
+installation/
+CodeDB/
+VisualGDB/
+VisualGDBCache/
