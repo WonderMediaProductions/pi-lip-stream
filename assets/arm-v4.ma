@@ -1,6 +1,6 @@
 //Maya ASCII 2018ff09 scene
-//Name: arm-v3.ma
-//Last modified: Sun, Apr 07, 2019 08:10:29 PM
+//Name: arm-v4.ma
+//Last modified: Sun, Apr 07, 2019 08:16:49 PM
 //Codeset: 1252
 requires maya "2018ff09";
 requires "mtoa" "3.1.1.1";
@@ -16,17 +16,17 @@ fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 createNode transform -s -n "persp";
 	rename -uid "6DC9E8E9-4526-799E-FE43-25BD99FA7FB8";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -49.134522933322067 57.469575299953817 50.422276163479481 ;
-	setAttr ".r" -type "double3" 324.86164726589124 -28.599999999997085 -1.8112849397296333e-15 ;
+	setAttr ".t" -type "double3" 55.983253206008513 72.491965650122864 96.826205483483832 ;
+	setAttr ".r" -type "double3" 330.8616472658648 17.400000000000709 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "B2E8C39E-405B-FC53-5DF3-56951A584DEA";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 73.616031728753242;
+	setAttr ".coi" 132.39212725600595;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -10.499999999999904 7.0088830305766008 38.000000000000057 ;
+	setAttr ".tp" -type "double3" -18.2353515625 4 -27.237716555595398 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 	setAttr ".ai_translator" -type "string" "perspective";
 createNode transform -s -n "top";
@@ -302,7 +302,6 @@ createNode mesh -n "pCubeShape1" -p "pCube1";
 createNode mesh -n "pCubeShape1Orig" -p "pCube1";
 	rename -uid "32B252C7-4FC1-D431-2D17-10BDCAECFA1E";
 	setAttr -k off ".v";
-	setAttr ".io" yes;
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -832,6 +831,32 @@ createNode polyCube -n "clickerPolyCube";
 	setAttr ".d" 14.5;
 	setAttr ".sd" 20;
 	setAttr ".cuv" 4;
+createNode polySplitRing -n "polySplitRing2";
+	rename -uid "E1398D9F-483C-8755-F74B-4D91C0E00766";
+	setAttr ".uopa" yes;
+	setAttr ".ics" -type "componentList" 2 "e[40:50]" "e[62:72]";
+	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 -20 4 -33 1;
+	setAttr ".wt" 0.80152028799057007;
+	setAttr ".dr" no;
+	setAttr ".re" 40;
+	setAttr ".sma" 29.999999999999996;
+	setAttr ".p[0]"  0 0 1;
+	setAttr ".fq" yes;
+createNode polyExtrudeFace -n "polyExtrudeFace2";
+	rename -uid "B88AD3C8-4D15-A531-6CDC-9DA16C987564";
+	setAttr ".ics" -type "componentList" 1 "f[54:63]";
+	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 -20 4 -33 1;
+	setAttr ".ws" yes;
+	setAttr ".pvt" -type "float3" -20 7.2060814 -32 ;
+	setAttr ".rs" 53623;
+	setAttr ".lt" -type "double3" 0 0 1 ;
+	setAttr ".c[0]"  0 1 1;
+	setAttr ".cbn" -type "double3" -25 6.4121623039245605 -32 ;
+	setAttr ".cbx" -type "double3" -15 8 -32 ;
+createNode polyDelEdge -n "polyDelEdge2";
+	rename -uid "A19BF55B-4064-F139-40FB-2BB21C34BF58";
+	setAttr ".ics" -type "componentList" 10 "e[125]" "e[130]" "e[135]" "e[140]" "e[145]" "e[150]" "e[155]" "e[160]" "e[165]" "e[170]";
+	setAttr ".cv" yes;
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -906,7 +931,7 @@ connectAttr "bend1GroupId.id" "pCubeShape1.iog.og[0].gid";
 connectAttr "bend1Set.mwc" "pCubeShape1.iog.og[0].gco";
 connectAttr "groupId15.id" "pCubeShape1.iog.og[1].gid";
 connectAttr "bend1.og[0]" "pCubeShape1.i";
-connectAttr "polyCube1.out" "pCubeShape1Orig.i";
+connectAttr "polyDelEdge2.out" "pCubeShape1Orig.i";
 connectAttr "groupId16.id" "pCubeShape2.iog.og[0].gid";
 connectAttr "bend1Set.mwc" "pCubeShape2.iog.og[0].gco";
 connectAttr "groupId17.id" "pCubeShape2.iog.og[1].gid";
@@ -1039,6 +1064,11 @@ connectAttr "groupId19.id" "groupParts12.gi";
 connectAttr "groupId19.msg" "tweakSet2.gn" -na;
 connectAttr "|group|clicker1|clickerShape1.iog.og[1]" "tweakSet2.dsm" -na;
 connectAttr "tweak2.msg" "tweakSet2.ub[0]";
+connectAttr "polyCube1.out" "polySplitRing2.ip";
+connectAttr "pCubeShape1Orig.wm" "polySplitRing2.mp";
+connectAttr "polySplitRing2.out" "polyExtrudeFace2.ip";
+connectAttr "pCubeShape1Orig.wm" "polyExtrudeFace2.mp";
+connectAttr "polyExtrudeFace2.out" "polyDelEdge2.ip";
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
 connectAttr "addDoubleLinear1.msg" ":defaultRenderUtilityList1.u" -na;
@@ -1073,4 +1103,4 @@ connectAttr "groupId9.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId10.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId11.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId12.msg" ":initialShadingGroup.gn" -na;
-// End of arm-v3.ma
+// End of arm-v4.ma
